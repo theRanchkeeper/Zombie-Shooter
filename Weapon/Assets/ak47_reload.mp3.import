@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/ak47_reload.mp3-06428acdab19b5c68b4f6513c1eb62c4.mp3str"
+
+[deps]
+
+source_file="res://Weapon/Assets/ak47_reload.mp3"
+dest_files=[ "res://.import/ak47_reload.mp3-06428acdab19b5c68b4f6513c1eb62c4.mp3str" ]
+
+[params]
+
+loop=true
+loop_offset=0

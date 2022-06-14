@@ -1,0 +1,135 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://Player/Player.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Level/BasicLevel.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Scene/HUD.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Scene/PauseMenu.tscn" type="PackedScene" id=5]
+[ext_resource path="res://Zombie/Zombie.tscn" type="PackedScene" id=6]
+
+[sub_resource type="GDScript" id=1]
+script/source = "extends Node2D
+
+signal enemy_hurt
+signal enemy_died
+signal player_dead
+signal reload_prompt
+
+export (PackedScene) var zombie
+onready var player = $Player
+onready var path_offset = $Player/Camera2D/Path2D/PathFollow2D
+onready var spawn_point = $Player/Camera2D/Path2D/PathFollow2D/Position2D
+onready var scoreboard = $HUD/ScoreBG/ScoreOut
+onready var bullet_count = $Player/Weapon.bullet_counter
+onready var ammo_count_display = $HUD/GunStatBG/AmmoCount
+onready var hud = $HUD
+onready var health_bar = $HUD/ProgressBar
+
+#game stats
+var _score:int = 0
+
+
+func _ready() -> void:
+	#_spawn_enemy()
+	connect(\"player_dead\",player,\"_dead\")
+	connect(\"reload_prompt\",hud,\"prompt_to_reload\")
+	scoreboard.add_text(\"nil\")
+	print(\"main scene name\" + get_tree().to_string())
+	print(\"pause menu\")
+	
+func _process(delta: float) -> void:
+	pass
+	
+
+#game world functions
+func update_score(score:int):
+	Global.score += score
+	_show_score()
+
+func _show_score():
+	scoreboard.clear()
+	scoreboard.add_text(str(Global.score))
+
+func _game_over():
+	get_tree().free()
+
+
+
+#spawns an enemy
+func _spawn_enemy():
+	var enemy
+	enemy= zombie.instance()
+	add_child(enemy)
+	self.connect(\"enemy_hurt\",enemy,\"_enemy_got_hurt\")
+	#self.connect(\"enemy_died\",enemy,\"_enemy_is_dead\")
+	enemy.position = set_enemy_spawn()
+	
+#player damage
+func _hurt_player():
+	_show_damage()
+	player.health -= 15
+	health_bar.value = player.health
+	if player.health < 0:
+		emit_signal(\"player_dead\")
+
+#generate random enemy spawn
+func set_enemy_spawn():
+	var rng = RandomNumberGenerator.new()
+	rng.randomize()
+	path_offset.offset = rng.randi_range(0,3664)
+	return spawn_point.global_position
+
+
+func _on_EnemeyWave_timeout() -> void:
+	_spawn_enemy()
+	
+
+func update_bullet_count(bullet_count):
+	ammo_count_display.clear()
+	ammo_count_display.add_text(str(bullet_count))
+	
+func _show_damage():
+	$DamageLayer/DamageTimer.start()
+	$DamageLayer/ColorRect.visible = true
+
+
+
+func _on_DamageTimer_timeout() -> void:
+	$DamageLayer/ColorRect.visible = false
+"
+
+[node name="BasicScene" type="Node2D"]
+script = SubResource( 1 )
+zombie = ExtResource( 6 )
+
+[node name="DamageLayer" type="CanvasLayer" parent="."]
+
+[node name="ColorRect" type="ColorRect" parent="DamageLayer"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color( 1, 0.188235, 0, 0.356863 )
+
+[node name="DamageTimer" type="Timer" parent="DamageLayer"]
+wait_time = 0.25
+
+[node name="HUD" parent="." instance=ExtResource( 4 )]
+
+[node name="PauseScreen" type="CanvasLayer" parent="."]
+
+[node name="PauseMenu" parent="PauseScreen" instance=ExtResource( 5 )]
+visible = false
+
+[node name="Player" parent="." instance=ExtResource( 1 )]
+scale = Vector2( 0.25, 0.25 )
+z_index = 1
+
+[node name="BasicLevel" parent="." instance=ExtResource( 2 )]
+position = Vector2( -103, -374 )
+scale = Vector2( 0.85, 0.85 )
+
+[node name="EnemeyWave" type="Timer" parent="."]
+wait_time = 5.0
+autostart = true
+
+[connection signal="timeout" from="DamageLayer/DamageTimer" to="." method="_on_DamageTimer_timeout"]
+[connection signal="timeout" from="EnemeyWave" to="." method="_on_EnemeyWave_timeout"]

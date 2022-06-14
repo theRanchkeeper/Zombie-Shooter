@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/509430__seanmorrissey96__ak-47.wav-f0f6d6a51d02b93e57b366093ccaf193.sample"
+
+[deps]
+
+source_file="res://Weapon/Assets/509430__seanmorrissey96__ak-47.wav"
+dest_files=[ "res://.import/509430__seanmorrissey96__ak-47.wav-f0f6d6a51d02b93e57b366093ccaf193.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

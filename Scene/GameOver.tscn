@@ -1,0 +1,69 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://Scene/Scripts/GameOver.gd" type="Script" id=1]
+
+[node name="GameOver" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 1 )
+
+[node name="ColorRect" type="ColorRect" parent="."]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -399.0
+margin_top = -302.0
+margin_right = 401.0
+margin_bottom = 298.0
+color = Color( 0.12549, 0.105882, 0.105882, 1 )
+
+[node name="Label" type="Label" parent="."]
+margin_left = 371.0
+margin_top = 300.0
+margin_right = 444.0
+margin_bottom = 314.0
+text = "Game Over"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+margin_left = 38.0
+margin_top = 489.0
+margin_right = 238.0
+margin_bottom = 533.0
+
+[node name="Retry" type="Button" parent="VBoxContainer"]
+margin_right = 200.0
+margin_bottom = 20.0
+text = "Retry"
+
+[node name="Quit" type="Button" parent="VBoxContainer"]
+margin_top = 24.0
+margin_right = 200.0
+margin_bottom = 44.0
+text = "Quit"
+
+[node name="ScoreBoard" type="Control" parent="."]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -114.0
+margin_top = -58.0
+margin_right = 125.0
+margin_bottom = -18.0
+
+[node name="YourScore" type="RichTextLabel" parent="ScoreBoard"]
+margin_left = 135.0
+margin_top = 14.0
+margin_right = 176.0
+margin_bottom = 34.0
+
+[node name="Label" type="Label" parent="ScoreBoard"]
+margin_left = 13.0
+margin_top = 12.0
+margin_right = 129.0
+margin_bottom = 26.0
+text = "You have scored : "
+
+[connection signal="pressed" from="VBoxContainer/Retry" to="." method="_on_Retry_pressed"]
+[connection signal="pressed" from="VBoxContainer/Quit" to="." method="_on_Quit_pressed"]

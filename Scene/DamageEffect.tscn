@@ -1,0 +1,18 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://Scene/Scripts/DamageEffect.gd" type="Script" id=1]
+
+[node name="DamageEffect" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 1 )
+
+[node name="ColorRect" type="ColorRect" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color( 1, 0, 0, 0.211765 )
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 0.75
+
+[connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]

@@ -1,0 +1,35 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://ProgressWheel/Assets/over.png" type="Texture" id=1]
+[ext_resource path="res://ProgressWheel/Assets/under.png" type="Texture" id=2]
+[ext_resource path="res://ProgressWheel/Assets/ReloadTime.gd" type="Script" id=3]
+
+[node name="ReloadTime" type="Control"]
+anchor_right = 0.08125
+anchor_bottom = 0.108333
+script = ExtResource( 3 )
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="TextureProgress" type="TextureProgress" parent="."]
+margin_left = 10.0
+margin_right = 50.0
+margin_bottom = 40.0
+texture_under = ExtResource( 2 )
+texture_progress = ExtResource( 1 )
+fill_mode = 4
+nine_patch_stretch = true
+
+[node name="RichTextLabel" type="RichTextLabel" parent="."]
+modulate = Color( 1, 0, 0, 1 )
+margin_left = 2.0
+margin_top = 43.0
+margin_right = 63.0
+margin_bottom = 72.0
+text = "reloading"
+
+[node name="Timer" type="Timer" parent="."]
+one_shot = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]

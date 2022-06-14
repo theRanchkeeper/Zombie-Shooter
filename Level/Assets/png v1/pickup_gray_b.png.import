@@ -1,0 +1,35 @@
+[remap]
+
+importer="texture"
+type="StreamTexture"
+path="res://.import/pickup_gray_b.png-e5ccbe34c08a5fff85e1b88070d78949.stex"
+metadata={
+"vram_texture": false
+}
+
+[deps]
+
+source_file="res://Level/Assets/png v1/pickup_gray_b.png"
+dest_files=[ "res://.import/pickup_gray_b.png-e5ccbe34c08a5fff85e1b88070d78949.stex" ]
+
+[params]
+
+compress/mode=0
+compress/lossy_quality=0.7
+compress/hdr_mode=0
+compress/bptc_ldr=0
+compress/normal_map=0
+flags/repeat=0
+flags/filter=true
+flags/mipmaps=false
+flags/anisotropic=false
+flags/srgb=2
+process/fix_alpha_border=true
+process/premult_alpha=false
+process/HDR_as_SRGB=false
+process/invert_color=false
+process/normal_map_invert_y=false
+stream=false
+size_limit=0
+detect_3d=true
+svg/scale=1.0

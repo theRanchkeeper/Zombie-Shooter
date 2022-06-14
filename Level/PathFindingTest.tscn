@@ -1,0 +1,28 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://Level/PathFindingTest.gd" type="Script" id=1]
+[ext_resource path="res://icon.png" type="Texture" id=2]
+[ext_resource path="res://Zombie/Zombie.tscn" type="PackedScene" id=3]
+
+[sub_resource type="NavigationPolygon" id=1]
+vertices = PoolVector2Array( 145, 132, 398, 126, 298, 242, 139, 296, 301, 427, 406, 376, 857, 342, 891, 239, 1136, 268, 1005, 481, 820, 495, 588, 512, 656, 373, 718, 614, 293, 608 )
+polygons = [ PoolIntArray( 0, 1, 2, 3 ), PoolIntArray( 4, 3, 2, 5 ), PoolIntArray( 6, 7, 8, 9, 10 ), PoolIntArray( 11, 12, 6, 10, 13 ), PoolIntArray( 13, 14, 4, 5, 11 ), PoolIntArray( 13, 10, 10 ) ]
+outlines = [ PoolVector2Array( 145, 132, 139, 296, 301, 427, 293, 608, 718, 614, 820, 495, 820, 495, 1005, 481, 1136, 268, 891, 239, 857, 342, 656, 373, 588, 512, 406, 376, 298, 242, 398, 126 ) ]
+
+[node name="PathFindingTest" type="Node2D"]
+script = ExtResource( 1 )
+
+[node name="Navigation2D" type="Navigation2D" parent="."]
+
+[node name="NavigationPolygonInstance" type="NavigationPolygonInstance" parent="Navigation2D"]
+position = Vector2( 15, -26 )
+navpoly = SubResource( 1 )
+
+[node name="Zombie" parent="." instance=ExtResource( 3 )]
+position = Vector2( 999, 310 )
+
+[node name="Destination" type="Sprite" parent="."]
+position = Vector2( 220, 181 )
+texture = ExtResource( 2 )
+
+[node name="Line2D" type="Line2D" parent="."]
